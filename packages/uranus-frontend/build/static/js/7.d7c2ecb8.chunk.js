@@ -1,0 +1,2 @@
+(this["webpackJsonpuranus-frontend"]=this["webpackJsonpuranus-frontend"]||[]).push([[7],{1631:function(n,t,u){"use strict";u.r(t);var r=u(522);u.d(t,"default",(function(){return r.a}))}}]);
+//# sourceMappingURL=7.d7c2ecb8.chunk.js.map
