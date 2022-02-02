@@ -17,8 +17,9 @@ export const getPoolApr = (
   totalStaked: number,
   // tokenPerBlock: number,
 ): number => {
-  const tokenPerBlock = process.env.REACT_APP_TOKEN_PER_BLOCK
-  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(BLOCKS_PER_MONTH).times(COE_SUPPLY_VARING)
+  const SUPPLY_PER_MONTH = Number(getSupply())
+  callUpdateOncePerDay()
+  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(SUPPLY_PER_MONTH).div(11).times(COE_SUPPLY_VARING)
   const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
   // const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(1000000000) // XXX debug hard code for APR
   const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
@@ -40,7 +41,8 @@ export const getFarmApr = (
   farmAddress: string,
 ): { tanRewardsApr: number; lpRewardsApr: number } => {
   const SUPPLY_PER_MONTH = Number(getSupply())
-  const yearlyTanRewardAllocation = poolWeight ? poolWeight.times(SUPPLY_PER_MONTH * COE_SUPPLY_VARING) : new BigNumber(NaN)
+  callUpdateOncePerDay()
+  const yearlyTanRewardAllocation = poolWeight ? poolWeight.times(SUPPLY_PER_MONTH).div(11).times(10).times(COE_SUPPLY_VARING) : new BigNumber(NaN)
   const tanRewardsApr = yearlyTanRewardAllocation.times(tanPriceUsd).div(poolLiquidityUsd).times(100)
   let tanRewardsAprAsNumber = null
   if (!tanRewardsApr.isNaN() && tanRewardsApr.isFinite()) {
