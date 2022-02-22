@@ -66,7 +66,7 @@ const App: React.FC = () => {
   // useFetchProfile()
   // usePollCoreFarmData()
   return (
-    <HashRouter history={history}>
+    <HashRouter>
       <Sidebar />
       <ScrollToTop>
         <ResetCSS />
